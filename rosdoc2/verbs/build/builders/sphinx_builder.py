@@ -226,6 +226,9 @@ rosdoc2_settings = {{
     ## settings as needed if they are set by this configuration.
     # 'enable_exhale': True,
 
+    ## This setting, if True, will ensure intersphinx is part of the 'extensions'.
+    # 'enable_intersphinx': True,
+
     ## This setting, if True, will have the 'html_theme' overridden to provide
     ## a consistent style across all of the ROS documentation.
     # 'override_theme': True,
