@@ -77,6 +77,17 @@ class DoxygenBuilder(Builder):
 
         assert self.builder_type == 'doxygen'
 
+        # If the build type is not `ament_cmake/cmake`, there is no reason
+        # to create a doxygen builder.
+        if (
+            self.build_context.build_type not in ('ament_cmake', 'cmake') and
+            not self.build_context.always_run_doxygen
+        ):
+            logger.info(
+                f"The package build type is not 'ament_cmake' or 'cmake', hence the"
+                f"'{self.builder_type}' builder was not configured")
+            return
+
         self.doxyfile = None
         self.extra_doxyfile_statements = []
         self.rosdoc2_doxyfile_statements = []
@@ -149,6 +160,16 @@ class DoxygenBuilder(Builder):
             logger.info(f"Using user specified Doxyfile at '{self.doxyfile}'.")
 
     def build(self, *, doc_build_folder, output_staging_directory):
+        # If the build type is not 'ament_cmake/cmake', there is no reason to run doxygen.
+        if (
+            self.build_context.build_type not in ('ament_cmake', 'cmake') and
+                not self.build_context.always_run_doxygen
+        ):
+            logger.info(
+                f"The package build type is not 'ament_cmake' or 'cmake', hence the"
+                f"'{self.builder_type}' builder was not invoked")
+            return None  # Explicitly generated no documentation.
+
         # If both doxyfile and doxyfile_content are None, that means there is
         # no reason to run doxygen.
         if self.doxyfile is None and self.doxyfile_content is None:

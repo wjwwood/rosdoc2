@@ -44,6 +44,23 @@ settings:
 
     ## If this is not specified explicitly, it defaults to 'true'.
     generate_package_index: true
+
+    ## This setting is relevant mostly if the standard Python package layout cannot
+    ## be assumed for 'sphinx-apidoc' invocation. The user can provide the path
+    ## (relative to the 'package.xml' file) where the Python modules defined by this
+    ## package are located.
+    python_source: '{package_name}'
+
+    ## This setting, if true, attempts to run `doxygen` and the `breathe`/`exhale`
+    ## extensions to `sphinx` regardless of build type. This is most useful if the
+    ## user would like to generate C/C++ API documentation for a package that is not
+    ## of the `ament_cmake/cmake` build type.
+    always_run_doxygen: false
+
+    ## This setting, if true, attempts to run `sphinx-apidoc` regardless of build
+    ## type. This is most useful if the user would like to generate Python API
+    ## documentation for a package that is not of the `ament_python` build type.
+    always_run_sphinx_apidoc: false
 builders:
     ## Each stanza represents a separate build step, performed by a specific 'builder'.
     ## The key of each stanza is the builder to use; this must be one of the

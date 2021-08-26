@@ -24,3 +24,7 @@ class BuildContext:
         self.configuration_file_path = configuration_file_path
         self.package = package_object
         self.tool_options = tool_options
+        self.build_type = package_object.get_build_type()
+        self.python_source = None
+        self.always_run_doxygen = False
+        self.always_run_sphinx_apidoc = False

@@ -57,6 +57,10 @@ def parse_rosdoc2_yaml(yaml_string, build_context):
             f"expected a dict{{output_dir: build_settings, ...}}, "
             f"got a '{type(builders_dict)}' instead")
 
+    build_context.python_source = settings_dict.get('python_source', None)
+    build_context.always_run_doxygen = settings_dict.get('always_run_doxygen', False)
+    build_context.always_run_sphinx_apidoc = settings_dict.get('always_run_sphinx_apidoc', False)
+
     if 'builders' not in config:
         raise ValueError(
             f"Error parsing file '{file_name}', in the second section, "
