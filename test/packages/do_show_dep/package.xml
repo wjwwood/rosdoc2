@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>do_show_dep</name>
+  <version>0.1.2</version>
+  <description>forcing show of exec dependencies</description>
+  <maintainer email="someone@example.com">Some One</maintainer>
+  <license>Apache License 2.0</license>
+  <depend>basic_cpp</depend>
+  <exec_depend>full_package</exec_depend>
+  <exec_depend>minimum_package</exec_depend>
+  <exec_depend>only_messages</exec_depend>
+  <exec_depend>only_python</exec_depend>
+  <export>
+    <rosdoc2>rosdoc2.yaml</rosdoc2>
+  </export>
+</package>

@@ -77,7 +77,7 @@ def prepare_arguments(parser):
     parser.add_argument(
         '--base-url',
         '-u',
-        default='http://docs.ros.org/en/latest/p',
+        default='http://docs.ros.org/en/rolling/p',
         help='The base url where the package docs will be hosted, used to configure tag files.',
     )
     parser.add_argument(

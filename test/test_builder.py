@@ -69,6 +69,7 @@ def do_build_package(package_path, work_path) -> None:
         '-c', str(cr_dir),
         '-o', str(output_dir),
         '-d', str(build_dir),
+        '-u', '..',
     ])
     logger.info(f'*** Building package(s) at {package_path} with options {options}')
 
@@ -183,7 +184,8 @@ def test_minimum_package(session_dir):
     ]
     excludes = [
         'classes and structs',  # only found in C++ projects
-        'links',  # only found if urls defined
+        'links',  # only found if urls defined,
+        'execution dependencies of this package',  # only in meta packages
     ]
     file_includes = [
         'search.html',
@@ -296,3 +298,40 @@ def test_basic_cpp(session_dir):
     generated = pathlib.Path(DATAPATH / PKG_NAME / 'doc' / 'generated')
     assert not generated.exists(), \
         'Building should not create a "generated" directory in package/doc'
+
+
+def test_meta_package(session_dir):
+    """Tests a meta package."""
+    PKG_NAME = 'meta_package'
+
+    do_build_package(DATAPATH / PKG_NAME, session_dir)
+
+    includes = [
+        'execution dependencies of this package',
+        'only_python',
+    ]
+    do_test_package(PKG_NAME, session_dir, includes=includes)
+
+
+def test_do_show_dep(session_dir):
+    """Tests rosdoc2.yaml with show_exec_dep=true."""
+    PKG_NAME = 'do_show_dep'
+
+    do_build_package(DATAPATH / PKG_NAME, session_dir)
+
+    includes = [
+        'execution dependencies of this package',
+    ]
+    do_test_package(PKG_NAME, session_dir, includes=includes)
+
+
+def test_dont_show_dep(session_dir):
+    """Tests rosdoc2.yaml with show_exec_dep=false."""
+    PKG_NAME = 'dont_show_dep'
+
+    do_build_package(DATAPATH / PKG_NAME, session_dir)
+
+    excludes = [
+        'execution dependencies of this package',
+    ]
+    do_test_package(PKG_NAME, session_dir, excludes=excludes)

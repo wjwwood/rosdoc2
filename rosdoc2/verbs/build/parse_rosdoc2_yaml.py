@@ -61,6 +61,7 @@ def parse_rosdoc2_yaml(yaml_string, build_context):
     build_context.always_run_doxygen = settings_dict.get('always_run_doxygen', False)
     build_context.always_run_sphinx_apidoc = settings_dict.get('always_run_sphinx_apidoc', False)
     build_context.build_type = settings_dict.get('override_build_type', build_context.build_type)
+    build_context.show_exec_dep = settings_dict.get('show_exec_dep', None)
 
     if 'builders' not in config:
         raise ValueError(

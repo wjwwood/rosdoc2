@@ -66,6 +66,14 @@ settings:
     # for documentation purposes only. If not provided, documentation will be
     # generated assuming the build_type in package.xml.
     # override_build_type: 'ament_python'
+
+    # This boolean setting, if provided, determines whether the external dependencies of a package
+    # are shown in the home page of the documentation, which is useful for packages that are only
+    # used to force loading of other packages (which are sometimes called meta packages).
+    # If not set, then the decision to show the external dependencies is made on the following
+    # heuristics: show if the package has no build_depend, does have exec_depend, and has no
+    # subdirectories except an optional doc/ subdirectory.
+    # show_exec_dep: None
 builders:
     ## Each stanza represents a separate build step, performed by a specific 'builder'.
     ## The key of each stanza is the builder to use; this must be one of the

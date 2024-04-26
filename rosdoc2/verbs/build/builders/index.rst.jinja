@@ -21,6 +21,15 @@
 {% if interface_counts['srv'] > 0 %}   Service Definitions <interfaces/service_definitions>{% endif %}
 {% if interface_counts['action'] > 0 %}   Action Definitions <interfaces/action_definitions>{% endif %}
 {% if has_standard_docs %}   Standard Documents <standards>{% endif %}
+{% if show_exec_dep %}
+
+Execution Dependencies of this package
+--------------------------------------
+{% for dependency in package.exec_depends -%}
+* `{{ dependency }} <{{ base_url }}/{{ dependency }}>`_
+{% endfor -%}
+{% endif -%}
+
 {% if has_documentation %}
 .. toctree::
    :titlesonly:

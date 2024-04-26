@@ -16,6 +16,7 @@ from importlib import resources
 import json
 import logging
 import os
+from pathlib import Path
 import shutil
 import subprocess
 
@@ -471,6 +472,31 @@ class SphinxBuilder(Builder):
 
         always_run_doxygen = build_context.always_run_doxygen
         has_cpp = build_context.build_type in ['ament_cmake', 'cmake'] or always_run_doxygen
+        package = self.build_context.package
+
+        show_exec_dep = build_context.show_exec_dep
+        if show_exec_dep is None:
+            if package.is_metapackage():
+                show_exec_dep = True
+                logger.info('show_exec_dep set True because is_metapackage set in package.xml')
+            # Detect meta packages. They have no build_dependencies, do have exec_dependencies,
+            # and have no subdirectories except for possibly 'doc'.
+            elif package.build_depends or not package.exec_depends:
+                show_exec_dep = False
+                logger.info("show_exec_dep set False because depends don't match meta pattern")
+            else:
+                pp = Path(package_xml_directory)
+                subdirectories = [x for x in pp.iterdir() if x.is_dir()]
+                for subdirectory in subdirectories:
+                    if subdirectory.name != 'doc':
+                        show_exec_dep = False
+                        logger.info('show_exec_dep set False because non-"doc/" directory found')
+                        continue
+            if show_exec_dep is None:
+                show_exec_dep = True
+                logger.info('show_exec_dep set True as package matches meta pattern')
+        else:
+            logger.info(f'show_exec_dep set to {show_exec_dep} in rosdoc2.yml')
         self.template_variables.update({
             'has_python': has_python,
             'has_cpp': has_cpp,
@@ -478,7 +504,9 @@ class SphinxBuilder(Builder):
             'has_documentation': bool(doc_directories),
             'has_readme': 'readme' in standard_docs,
             'interface_counts': interface_counts,
-            'package': self.build_context.package,
+            'package': package,
+            'base_url': base_url,
+            'show_exec_dep': show_exec_dep,
         })
 
         # Setup rosdoc2 Sphinx file which will include and extend the one in
