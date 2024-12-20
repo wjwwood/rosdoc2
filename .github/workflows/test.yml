@@ -79,4 +79,4 @@ jobs:
        python3 -m pip freeze
 
     - name: Run tests
-      run: python3 -m pytest --verbose test
+      run: python3 -m pytest --verbose -rA test
