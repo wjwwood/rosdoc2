@@ -1,0 +1,40 @@
+.. GENERATED_CONTENT by rosdoc2.verbs.build.builders.sphinx_builder.
+
+{{ package.name }}
+{% for _ in package.name %}={% endfor %}
+
+{{ package.description }}
+
+* Links
+
+  * `Rosindex <https://index.ros.org/p/{{package.name}}>`_
+  * `Extra user link <https://example.org/the_link>`_
+{% for link in package.urls %}
+  * `{{ link.type.capitalize() }} <{{ link.url }}>`_
+{% endfor -%}
+
+.. toctree::
+   :maxdepth: 2
+
+{% if has_python %}   Python API <modules>{% endif %}
+{% if has_cpp %}   C++ API <generated/index>{% endif %}
+{% if interface_counts['msg'] > 0 %}   Message Definitions <interfaces/message_definitions>{% endif %}
+{% if interface_counts['srv'] > 0 %}   Service Definitions <interfaces/service_definitions>{% endif %}
+{% if interface_counts['action'] > 0 %}   Action Definitions <interfaces/action_definitions>{% endif %}
+{% if has_standard_docs %}   Standard Documents <standards>{% endif %}
+{% if external_doc_url %}
+   Documentation <{{ external_doc_url }}>
+{% elif has_documentation %}
+.. toctree::
+   :titlesonly:
+   :maxdepth: 2
+
+   Documentation <user_docs>
+{% endif %}
+{% if has_readme %}.. include:: __readme_include.rst{% endif%}
+
+.. toctree::
+   :hidden:
+
+   genindex
+

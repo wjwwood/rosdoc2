@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>user_jinja_sphinx_sourcedir
+  </name>
+  <version>0.1.2</version>
+  <description>User specified index.rst.jinja with sphinx_sourcedir</description>
+  <maintainer email="someone@example.com">Some One</maintainer>
+  <license>Apache License 2.0</license>
+  <export>
+    <build_type>ament_cmake</build_type>
+    <rosdoc2>rosdoc2.yaml</rosdoc2>
+  </export>
+</package>
