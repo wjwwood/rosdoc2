@@ -26,6 +26,7 @@ from rosdoc2.verbs.build.impl import prepare_arguments as build_prepare_argument
 
 logging.basicConfig(
     format='[%(name)s] [%(levelname)s] %(message)s', level=logging.INFO)
+logger = logging.getLogger('rosdoc2')
 logger_scan = logging.getLogger('rosdoc2.scan')
 
 goptions = None
@@ -87,10 +88,8 @@ def main_impl(options):
     goptions = options
 
     if options.install_directory is not None:
-        # Check that the install directory exists.
-        if not os.path.exists(options.install_directory):
-            sys.exit(
-                f"Error: given install directory '{options.install_directory}' does not exist")
+        logger.warn(
+            'The --install-directory option (-i) is unused and will be removed in a future version')
 
     # Locate the packages to document.
     found_packages = find_packages_allowing_duplicates(options.package_path)

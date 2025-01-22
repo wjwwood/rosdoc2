@@ -66,7 +66,7 @@ def prepare_arguments(parser):
     parser.add_argument(
         '--install-directory',
         '-i',
-        help='install directory of the package',
+        help='UNUSED, to be removed at some time (install directory of the package)',
     )
     parser.add_argument(
         '--cross-reference-directory',
@@ -127,10 +127,8 @@ def main_impl(options):
             'The --build-directory option (-b) is unused and will be removed in a future version')
 
     if options.install_directory is not None:
-        # Check that the install directory exists.
-        if not os.path.exists(options.install_directory):
-            sys.exit(
-                f"Error: given install directory '{options.install_directory}' does not exist")
+        logger.warn(
+            'The --install-directory option (-i) is unused and will be removed in a future version')
 
     # Inspect package for additional settings, using defaults if none found.
     tool_settings, builders = inspect_package_for_settings(
